@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="eng">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r125/three.min.js"
+    ></script>
+    <script
+      defer
+      src="https://unpkg.com/three@0.125.2/examples/js/controls/OrbitControls.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"
+    ></script>
+    <script
+      defer
+      src="https://unpkg.com/three@0.125.2/examples/js/loaders/GLTFLoader.js"
+    ></script>
+    <script defer src="main.js"></script>
+    <title>Document</title>
+  </head>
+
+  <body>
+    <canvas class="webgl"></canvas>
+    <script id="firefliesVertexShader" type="x-shader/x-vertex">
+          uniform float uPixelRatio;
+      uniform float uSize;
+      uniform float uTime;
+      attribute float aScale;
+      void main (){
+          vec4 modelPosition = modelMatrix* vec4(position, 1.0);
+          modelPosition.y += sin(uTime + modelPosition.x * 100.0)* aScale*0.2;
+          modelPosition.z += cos(uTime + modelPosition.x * 100.0)* aScale*0.2;
+          modelPosition.x += cos(uTime+ modelPosition.x * 100.0) * aScale * 0.2;
+          vec4 viewPosition = viewMatrix * modelPosition;
+          vec4 projectionPostion = projectMatrix * viewPosition;
+
+          gl_Position = projectionPostion;
+          gl_PointSize = uSize * aScale * uPixelRatio;
+          gl_PointSize *=(1.0 / - viewPosition.z);
+      }
+    </script>
+
+    <script id="firefliesFragmentShader" type="x-shader/x-fragment">
+      void main(){
+          vec4 modelPosition = modelMatrix * vec4(position, 1.0);
+          vec4 viewPosition = viewMatrix * modelPosition;
+          vec4 projectionPostion = projectMatrix * viewPosition;
+          gl_Position = projectionPostion;
+          vUv = uv;
+      }
+    </script>
+    <script></script>
+  </body>
+</html>
