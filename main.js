@@ -73,6 +73,14 @@ for (let i = 0; i < firefliesCount; i++) {
   new THREE.Vector3(
     (Math.random() - 0.5) * 4,
     Math.random() * 1.5,
-    (Math.random() - 0.5) * 4
+    (Math.random() - 0.5) * 4,
   )
 }
+firefliesGeometry.setAttribute(
+    "position",
+    new THREE.BufferAttribute(positionArray, 3)
+  );
+  firefliesGeometry.setAttribute(
+    "aScale",
+    new THREE.BufferAttribute(scaleArray, 1)
+  );
