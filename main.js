@@ -26,9 +26,11 @@ const bakedTexture = textureLoader.load(
   'https://assets.codepen.io/22914/baked-02.jpg',
 );
 bakedTexture.encoding = THREE.sRGBEncoding;
-bakedTexture.flipY = false;
 
 const bakedMaterial = new THREE.MeshBasicMaterial({ map: bakedTexture });
+
+bakedTexture.flipY = false;
+
 
 const poleLightMaterial = new THREE.MeshBasicMaterial({ color: '#f0b994' });  // Renk kodu düzeltildi
 
@@ -115,7 +117,7 @@ window.addEventListener('resize', () => {
 
   firefliesMaterial.uniforms.uPixelRatio.value = Math.min(
     window.devicePixelRatio,
-    2,
+    2
   );
 });
 
